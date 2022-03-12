@@ -101,6 +101,7 @@ rest-client.private.env.json
 # *.ipr
 
 # Sonarlint plugin
+.idea/
 .idea/**/sonarlint/
 
 # SonarQube Plugin
