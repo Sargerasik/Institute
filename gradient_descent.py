@@ -2,7 +2,7 @@ from decimal import Decimal
 
 class Algo:
     def __init__(self):
-        self.e = 0.1
+        self.e = 0.000001
         self.x = [Decimal(1.0), Decimal(1)]
         self.h = Decimal(0.4)
 

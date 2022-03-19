@@ -15,10 +15,10 @@ class Algo:
         """
         self.m = 2
         self.old_x = None
-        self.x = [1, 1]
+        self.x = [10, 10]
         self.h = 0.2
         self.d = 2
-        self.e = 0.1
+        self.e = 0.000001
 
     @staticmethod
     def check_result(x):
@@ -28,8 +28,7 @@ class Algo:
         :param x: Параметры функции
         :return: Результат функции
         """
-        #
-        return 0
+        return 2.8 * x[1] ** 2 + 1.9 * x[0] + 2.7 * x[0] ** 2 + 1.6 - 1.9 * x[1]
 
     def steps(self, index: int):
         """
@@ -60,6 +59,8 @@ class Algo:
 
         if new_res < old_res:
             self.template()
+        else:
+            self.h /= 2
 
     def template(self):
         """
