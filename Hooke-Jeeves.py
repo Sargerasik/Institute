@@ -11,7 +11,7 @@ class Algo:
         :param x: базисная точка
         :param h: Шаг по координатным направлениям
         :param d: коэфициент уменьшения шага
-        :return:
+        :return: None
         """
         self.m = 2
         self.old_x = None
@@ -22,7 +22,14 @@ class Algo:
 
     @staticmethod
     def check_result(x):
-        return 2.8 * x[1] ** 2 + 1.9 * x[0] + 2.7 * x[0] ** 2 + 1.6 - 1.9 * x[1]
+        """
+        Проверяет результат функции при переданных параметрах
+
+        :param x: Параметры функции
+        :return: Результат функции
+        """
+        #
+        return 0
 
     def steps(self, index: int):
         """
@@ -41,6 +48,10 @@ class Algo:
             self.x = x_copy.copy()
 
     def search(self):
+        """
+        Реализует поиск следующего решения.
+        :return:
+        """
         old_res = self.check_result(self.x)
         self.old_x = self.x
         for i in range(len(self.x)):
@@ -51,6 +62,11 @@ class Algo:
             self.template()
 
     def template(self):
+        """
+        Реализует поиск по шаблону
+
+        :return:
+        """
         temp_x = []
         for i in range(len(self.x)):
             temp_x.append(self.x[i] + self.m * (self.x[i] - self.old_x[i]))
@@ -66,6 +82,10 @@ class Algo:
 
 
 def main():
+    """
+    Основной цикл. Закончится в том случае, когда значение шага будет меньше или равно эпсиланту
+    :return:
+    """
     a = Algo()
     while a.h >= a.e:
         a.search()
