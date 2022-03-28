@@ -1,1 +1,2 @@
-print("Hello, worl")
+k = int(input())
+
