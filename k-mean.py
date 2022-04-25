@@ -1,3 +1,9 @@
+import pandas as pd
+import numpy as np
+import matplotlib as mpl
+import matplotlib.pyplot as plt
+
+
 def create_centroid(points: list):
     """Расчитывает центроид для одного кластера. Возвращает центроид"""
     # points = [(1,3), (1,2), (1,1)]
@@ -48,17 +54,37 @@ def main_loop():
     #     (1, 1): [(1, 3), (1, 2), (1, 1)],
     #     (2, 1): [(3, 3), (4, 3), (5, 3), (2, 1), (4, 2)]
     #     }
-
-    points = [(1, 3), (1, 2), (1, 1), (3, 3), (4, 3), (5, 3), (2, 1), (4, 2)]
-    centroid = [(1, 1), (2, 1)]
+    df = pd.read_csv("gold.csv")
+    df = df[["Close", "Volume"]] #"Open", "High", "Low",
+    points = np.array(df)
+    centroid = points[np.random.choice(np.arange(points.shape[0]), size=4, replace=False)]
+    points = [tuple(x) for x in points]
+    centroid = [tuple(x) for x in centroid]
+    #points = [(1, 3, 3), (1, 2, 3), (1, 1, 3), (3, 3, 3), (4, 3, 3), (5, 3, 3), (2, 1, 3), (4, 2, 3)]
+    #centroid = [(1, 1, 3), (2, 1, 3)]
     cluster = fill_clusters(centroid, points)
-    print(cluster)
-    while error_square(cluster) >= 7:
-        print("=" * 50)
+    # print(cluster)
+    old_cluster = None
+    while old_cluster != cluster:
+        # print("=" * 50)
+        old_cluster = cluster
+        print(error_square(cluster))
         centroid = [create_centroid(p) for p in cluster.values()]
-        print(centroid)
+        # print(centroid)
         cluster = fill_clusters(centroid, points)
-        print(cluster)
+        # print(cluster)
+    print(cluster)
+
+    for centroid, points in cluster.items():
+        x = []
+        y = []
+        for point in points:
+            x.append(point[0])
+            y.append(point[1])
+        plt.scatter(x, y, alpha=0.3)
+    plt.xlabel(f'Close')
+    plt.ylabel('Volume')
+    plt.show()
 
 
 def fill_clusters(centroid, points):
@@ -67,7 +93,7 @@ def fill_clusters(centroid, points):
         cluster[i] = []
     for p in points:
         distance = create_distance_from_point(centroid, p)
-        print(f"Point: {p}  distance: {distance}")
+        # print(f"Point: {p}  distance: {distance}")
         m = min(distance.values())
         for key, value in distance.items():
             if value == m:
