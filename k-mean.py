@@ -1,7 +1,6 @@
-import pandas as pd
-import numpy as np
-import matplotlib as mpl
 import matplotlib.pyplot as plt
+import numpy as np
+import pandas as pd
 
 
 def create_centroid(points: list):
@@ -63,16 +62,12 @@ def main_loop():
     #points = [(1, 3, 3), (1, 2, 3), (1, 1, 3), (3, 3, 3), (4, 3, 3), (5, 3, 3), (2, 1, 3), (4, 2, 3)]
     #centroid = [(1, 1, 3), (2, 1, 3)]
     cluster = fill_clusters(centroid, points)
-    # print(cluster)
     old_cluster = None
     while old_cluster != cluster:
-        # print("=" * 50)
         old_cluster = cluster
         print(error_square(cluster))
         centroid = [create_centroid(p) for p in cluster.values()]
-        # print(centroid)
         cluster = fill_clusters(centroid, points)
-        # print(cluster)
     print(cluster)
 
     for centroid, points in cluster.items():
@@ -101,4 +96,5 @@ def fill_clusters(centroid, points):
     return cluster
 
 
-main_loop()
+if __name__ == '__main__':
+    main_loop()

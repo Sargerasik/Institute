@@ -92,5 +92,5 @@ def main():
         a.search()
         print(a)
 
-
-main()
+if __name__ == '__main__':
+    main()

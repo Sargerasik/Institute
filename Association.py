@@ -164,4 +164,5 @@ def del_rare_categories(df, frequance, porog):
             frequance.pop(key, None)
     del items
 
-read_file()
+if __name__ == '__main__':
+    read_file()
