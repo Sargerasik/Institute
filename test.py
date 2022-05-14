@@ -5,8 +5,8 @@ import numpy as np
 import pandas as pd
 
 performance = np.array([
-    [0.3, 0.1, 0.3, 0.2, 0.05, 0.05],
-    [0.3, 0.025, 0.1, 0.325, 0.2, 0.05],
+    [0.3, 0, 0.4, 0.2, 0.05, 0.05],
+    [0.3, 0, 0.125, 0.325, 0.2, 0.05],
     [0.25, 0, 0, 0.05, 0.5, 0.2],
     [0.15, 0, 0, 0.025, 0.175, 0.65],
 ])
@@ -36,7 +36,7 @@ def stupid_adapter(new_calendar, old_calendar):
 
 def main_loop():
     global performance
-    students_count = 30
+    students_count = 15
     cal = calendar.Calendar().yeardatescalendar(2021)
     cal = stupid_adapter([], cal)
     days = len(cal)
@@ -45,13 +45,15 @@ def main_loop():
     cal = [val for val in cal for _ in range(0, students_count)]
 
     obj = ['mathematics', 'physics', 'chemistry', 'english']
-    students = dict.fromkeys(range(students_count), dict.fromkeys(obj, []))
+    # students = dict.fromkeys(range(students_count), dict.fromkeys(obj, None).copy())
+    students = {i: dict.fromkeys(obj, []) for i in range(students_count)}
     pprint.pprint(students)
     for st in students.keys():
         for o in students[st].keys():
             p = performance[np.random.choice(len(performance), size=1)]
-            students[st][o] = np.random.choice(range(6), size=len(cal),
+            mark = np.random.choice(range(6), size=len(cal),
                                                p=list(p)[0])
+            students[st][o] = mark
 
     data = dict.fromkeys(key, [0 for i in range(len(cal))])
     data["date"] = cal
@@ -82,6 +84,3 @@ if __name__ == '__main__':
     df = pd.read_csv("passwd.csv")
     print(df)
     df = df.replace(0, None)
-    print(df)
-    print(df.mean(axis=0, skipna=True))
-    # print(df.loc[:, "english"])

@@ -53,10 +53,10 @@ def main_loop():
     #     (1, 1): [(1, 3), (1, 2), (1, 1)],
     #     (2, 1): [(3, 3), (4, 3), (5, 3), (2, 1), (4, 2)]
     #     }
-    df = pd.read_csv("gold.csv")
-    df = df[["Close", "Volume"]] #"Open", "High", "Low",
+    df = pd.read_csv("passwd.csv")
+    df = df[['mathematics', 'physics', 'chemistry', 'english']] #"Open", "High", "Low",
     points = np.array(df)
-    centroid = points[np.random.choice(np.arange(points.shape[0]), size=4, replace=False)]
+    centroid = points[np.random.choice(np.arange(points.shape[0]), size=5, replace=False)]
     points = [tuple(x) for x in points]
     centroid = [tuple(x) for x in centroid]
     #points = [(1, 3, 3), (1, 2, 3), (1, 1, 3), (3, 3, 3), (4, 3, 3), (5, 3, 3), (2, 1, 3), (4, 2, 3)]
@@ -69,17 +69,18 @@ def main_loop():
         centroid = [create_centroid(p) for p in cluster.values()]
         cluster = fill_clusters(centroid, points)
     print(cluster)
+    print(cluster.keys())
 
-    for centroid, points in cluster.items():
-        x = []
-        y = []
-        for point in points:
-            x.append(point[0])
-            y.append(point[1])
-        plt.scatter(x, y, alpha=0.3)
-    plt.xlabel(f'Close')
-    plt.ylabel('Volume')
-    plt.show()
+    # for centroid, points in cluster.items():
+    #     x = []
+    #     y = []
+    #     for point in points:
+    #         x.append(point[0])
+    #         y.append(point[1])
+    #     plt.scatter(x, y, alpha=0.3)
+    # plt.xlabel(f'Close')
+    # plt.ylabel('Volume')
+    # plt.show()
 
 
 def fill_clusters(centroid, points):
