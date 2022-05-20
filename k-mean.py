@@ -71,16 +71,22 @@ def main_loop():
     print(cluster)
     print(cluster.keys())
 
-    # for centroid, points in cluster.items():
-    #     x = []
-    #     y = []
-    #     for point in points:
-    #         x.append(point[0])
-    #         y.append(point[1])
-    #     plt.scatter(x, y, alpha=0.3)
-    # plt.xlabel(f'Close')
-    # plt.ylabel('Volume')
-    # plt.show()
+    drow(cluster)
+
+
+def drow(cluster):
+    x = []
+    y = []
+    z = []
+    fig = plt.figure()
+    ax = fig.add_subplot(111, projection='3d')
+    for centroid in cluster.keys():
+        for point in centroid:
+            x.append(point[0])
+            y.append(point[1])
+            z.append(point[2])
+        ax.scatter(x, y, z)
+    ax.show()
 
 
 def fill_clusters(centroid, points):

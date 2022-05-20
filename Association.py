@@ -22,7 +22,7 @@ def create_rule_v2(pairs, df):
     sup_table = []
     for pair in temp:
         supp, auth = check_support(pair, df=df)
-        if supp > 15 and auth > 50:
+        if supp >= 15 and 50 <= auth <= 90:
             sup_table.append((pair, supp, auth))
     print(sup_table)
     return sup_table
@@ -34,7 +34,7 @@ def create_association_table(rule, df):
     for r in rule:
         for i in r:
             supp, auth = check_support(list(i), df)
-            if supp > 15 and auth > 50:
+            if supp >= 15 and 50 <= auth <= 90:
                 association_table.append((i, supp, auth))
     return association_table
 
