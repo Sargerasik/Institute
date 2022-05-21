@@ -60,7 +60,7 @@ def main_loop():
     points = [tuple(x) for x in points]
     centroid = [tuple(x) for x in centroid]
     #points = [(1, 3, 3), (1, 2, 3), (1, 1, 3), (3, 3, 3), (4, 3, 3), (5, 3, 3), (2, 1, 3), (4, 2, 3)]
-    #centroid = [(1, 1, 3), (2, 1, 3)]
+    # centroid = [(1, 1, 3), (2, 1, 3)]
     cluster = fill_clusters(centroid, points)
     old_cluster = None
     while old_cluster != cluster:
@@ -70,6 +70,16 @@ def main_loop():
         cluster = fill_clusters(centroid, points)
     print(cluster)
     print(cluster.keys())
+    x = np.array([1, 2, 3, 4])
+    y = df[df == 5].count().values
+    fig, ax = plt.subplots()
+    ax.stem(x, y)
+    ax.set_xticks(x, labels=['mathematics', 'physics', 'chemistry', 'english'])
+    ax.set_yticks(y, y)
+
+    plt.show()
+    print(df[df == 5].count().values)
+    print(df[df == 5].count())
 
     # for centroid, points in cluster.items():
     #     x = []
