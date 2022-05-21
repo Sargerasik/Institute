@@ -70,33 +70,23 @@ def main_loop():
         cluster = fill_clusters(centroid, points)
     print(cluster)
     print(cluster.keys())
-    x = np.array([1, 2, 3, 4])
-    y = df[df == 5].count().values
-    fig, ax = plt.subplots()
+    # x = np.array([1, 2, 3, 4])
+    # y = df[df == 5].count().values
+    fig, ax = plt.subplots(figsize=[16, 16])
+    # ax[0].stem(x, y)
+    # ax[0].set_xticks(x, labels=['mathematics', 'physics', 'chemistry', 'english'])
+    # ax[0].set_yticks(y, y)
+    x = [round(np.mean(cl), 2) for cl in cluster.keys()]
+    y = []
+    for centroid, points in cluster.items():
+        y.append(len(points))
     ax.stem(x, y)
-    ax.set_xticks(x, labels=['mathematics', 'physics', 'chemistry', 'english'])
+    ax.set(xticks=list(ax.get_xticks()[0]) + [int(i) for i in x], xlim=(0, 5))
+    # ax.set_xticks(x, x)
     ax.set_yticks(y, y)
-
     plt.show()
     print(df[df == 5].count().values)
     print(df[df == 5].count())
-
-    drow(cluster)
-
-
-def drow(cluster):
-    x = []
-    y = []
-    z = []
-    fig = plt.figure()
-    ax = fig.add_subplot(111, projection='3d')
-    for centroid in cluster.keys():
-        for point in centroid:
-            x.append(point[0])
-            y.append(point[1])
-            z.append(point[2])
-        ax.scatter(x, y, z)
-    ax.show()
 
 
 def fill_clusters(centroid, points):
